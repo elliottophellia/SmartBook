@@ -34,9 +34,7 @@ public class SmartBookApp {
                     showBooks();
                     break;
                 case 2:
-                    // implemented in later steps
-                    System.out.println("Fitur tambah buku akan segera tersedia.");
-                    pause();
+                    addBook();
                     break;
                 case 3:
                     // implemented in later steps
@@ -80,6 +78,51 @@ public class SmartBookApp {
             }
         }
         pause();
+    }
+
+    private void addBook() {
+        System.out.println("Tambah Buku Baru");
+        String title = readNonEmpty("Judul: ");
+        String category = readNonEmpty("Kategori: ");
+        double price = readDouble("Harga: ", 0);
+        int stock = readInt("Stok: ", 0, Integer.MAX_VALUE);
+
+        String id = IdGenerator.nextBookId();
+        Book book = new Book(id, title, category, price, stock);
+        books.add(book);
+
+        System.out.println("\nBuku berhasil ditambahkan:");
+        System.out.println(book.formatForList());
+        pause();
+    }
+
+    private String readNonEmpty(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String text = scanner.nextLine().trim();
+            if (text.isEmpty()) {
+                System.out.println("Input tidak boleh kosong, coba lagi.");
+            } else {
+                return text;
+            }
+        }
+    }
+
+    private double readDouble(String prompt, double min) {
+        while (true) {
+            System.out.print(prompt);
+            String raw = scanner.nextLine();
+            try {
+                double number = Double.parseDouble(raw.trim());
+                if (number < min) {
+                    System.out.printf("Masukkan nilai minimal %.0f.%n", min);
+                } else {
+                    return number;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Input tidak valid, coba lagi.");
+            }
+        }
     }
 
     private int readInt(String prompt, int min, int max) {

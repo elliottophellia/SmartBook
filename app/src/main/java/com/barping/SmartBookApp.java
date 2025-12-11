@@ -44,9 +44,7 @@ public class SmartBookApp {
                     buyBook();
                     break;
                 case 5:
-                    // implemented in later steps
-                    System.out.println("Riwayat transaksi akan segera tersedia.");
-                    pause();
+                    showTransactions();
                     break;
                 case 6:
                     running = false;
@@ -159,6 +157,18 @@ public class SmartBookApp {
             System.out.printf("Diskon: %.0f%n", discount);
         }
         System.out.printf("Total bayar: %.0f%n", total);
+        pause();
+    }
+
+    private void showTransactions() {
+        System.out.println("Riwayat Transaksi:");
+        if (transactions.isEmpty()) {
+            System.out.println("Belum ada transaksi.");
+        } else {
+            for (Transaction transaction : transactions) {
+                System.out.println(transaction.formatForList());
+            }
+        }
         pause();
     }
 
